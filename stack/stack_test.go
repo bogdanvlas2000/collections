@@ -29,11 +29,50 @@ func TestStack_Push_Pop(t *testing.T) {
 
 func TestStack_Size(t *testing.T) {
 	tests := []struct {
+		nums            []int
+		expectedValue   int
+		expectedCorrect bool
+	}{
+		{
+			nums:            []int{},
+			expectedValue:   0,
+			expectedCorrect: false,
+		},
+		{
+			nums:            []int{1},
+			expectedValue:   1,
+			expectedCorrect: true,
+		},
+		{
+			nums:            []int{1, 2, 3},
+			expectedValue:   3,
+			expectedCorrect: true,
+		},
+	}
+
+	for _, test := range tests {
+		s := New[int]()
+
+		for _, num := range test.nums {
+			s.Push(num)
+		}
+
+		value, ok := s.Peek()
+
+		assert.Equal(t, test.expectedValue, value)
+		assert.Equal(t, test.expectedCorrect, ok)
+		assert.Equal(t, len(test.nums), s.Size())
+	}
+}
+
+func TestStack_Peek(t *testing.T) {
+	tests := []struct {
 		nums         []int
 		expectedSize int
 	}{
 		{
-			nums:         []int{},
+			nums: []int{},
+
 			expectedSize: 0,
 		},
 		{

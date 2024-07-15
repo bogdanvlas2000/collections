@@ -31,13 +31,13 @@ func (s *Stack[T]) Push(value T) {
 	s.tail = newNode
 }
 
-func (s *Stack[T]) Pop() (T, bool) {
+func (s *Stack[T]) Pop() (value T, ok bool) {
 	if s.tail == nil {
 		var emptyVal T
 		return emptyVal, false
 	}
 
-	value := s.tail.value
+	value = s.tail.value
 
 	if s.tail == s.head {
 		s.head = nil
@@ -50,6 +50,15 @@ func (s *Stack[T]) Pop() (T, bool) {
 	s.tail = prevNode
 
 	return value, true
+}
+
+func (s *Stack[T]) Peek() (value T, ok bool) {
+	if s.tail == nil {
+		var emptyVal T
+		return emptyVal, false
+	}
+
+	return s.tail.value, true
 }
 
 func (s *Stack[T]) Size() int {
