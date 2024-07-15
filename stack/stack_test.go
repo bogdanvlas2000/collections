@@ -1,11 +1,11 @@
-package stack
+package collections
 
 import (
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
-func TestStack(t *testing.T) {
+func TestStack_Push_Pop(t *testing.T) {
 	nums := []int{1, 2, 3}
 	s := New[int]()
 
@@ -25,4 +25,33 @@ func TestStack(t *testing.T) {
 	expectedResults := []int{3, 2, 1}
 
 	assert.Equal(t, expectedResults, results)
+}
+
+func TestStack_Size(t *testing.T) {
+	tests := []struct {
+		nums         []int
+		expectedSize int
+	}{
+		{
+			nums:         []int{},
+			expectedSize: 0,
+		},
+		{
+			nums:         []int{1},
+			expectedSize: 1,
+		},
+		{
+			nums:         []int{1, 2, 3},
+			expectedSize: 3,
+		},
+	}
+
+	for _, test := range tests {
+		s := New[int]()
+
+		for _, num := range test.nums {
+			s.Push(num)
+		}
+		assert.Equal(t, test.expectedSize, s.Size())
+	}
 }
