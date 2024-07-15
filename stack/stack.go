@@ -1,4 +1,4 @@
-package stack
+package collections
 
 type Stack[T any] struct {
 	head *node[T]
@@ -50,4 +50,21 @@ func (s *Stack[T]) Pop() (T, bool) {
 	s.tail = prevNode
 
 	return value, true
+}
+
+func (s *Stack[T]) Size() int {
+	if s.head == nil {
+		return 0
+	}
+	if s.head == s.tail {
+		return 1
+	}
+
+	walker := s.head
+	counter := 0
+	for walker != nil {
+		walker = walker.next
+		counter++
+	}
+	return counter
 }
