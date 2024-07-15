@@ -1,4 +1,4 @@
-module bogdanvlas2000/collections
+module github.com/bogdanvlas2000/collections
 
 go 1.22.4
 
