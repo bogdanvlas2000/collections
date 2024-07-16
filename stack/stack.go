@@ -89,3 +89,12 @@ func (s *Stack[T]) PullFirst() (value T, ok bool) {
 	s.size--
 	return value, true
 }
+
+func (s *Stack[T]) First() (value T, ok bool) {
+	if s.size == 0 {
+		var emptyVal T
+		return emptyVal, false
+	}
+
+	return s.head.value, true
+}

@@ -140,3 +140,40 @@ func TestStack_PullFirst(t *testing.T) {
 		assert.False(t, ok)
 	}
 }
+
+func TestStack_First(t *testing.T) {
+	tests := []struct {
+		nums          []int
+		expectedValue int
+		expectedOk    bool
+	}{
+		{
+			nums:          []int{},
+			expectedValue: 0,
+			expectedOk:    false,
+		},
+		{
+			nums:          []int{1},
+			expectedValue: 1,
+			expectedOk:    true,
+		},
+		{
+			nums:          []int{1, 2, 3},
+			expectedValue: 1,
+			expectedOk:    true,
+		},
+	}
+
+	for _, test := range tests {
+		s := New[int]()
+
+		for _, num := range test.nums {
+			s.Push(num)
+		}
+
+		value, ok := s.First()
+		assert.Equal(t, test.expectedValue, value)
+		assert.Equal(t, test.expectedOk, ok)
+		assert.Equal(t, len(test.nums), s.Size())
+	}
+}
