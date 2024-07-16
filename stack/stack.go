@@ -1,6 +1,7 @@
 package collections
 
 type Stack[T any] struct {
+	size int
 	head *node[T]
 	tail *node[T]
 }
@@ -20,40 +21,43 @@ func (s *Stack[T]) Push(value T) {
 		value: value,
 	}
 
-	if s.head == nil {
+	if s.size == 0 {
 		s.head = newNode
 		s.tail = newNode
-		return
+	} else {
+		newNode.prev = s.tail
+		s.tail.next = newNode
+		s.tail = newNode
 	}
 
-	newNode.prev = s.tail
-	s.tail.next = newNode
-	s.tail = newNode
+	s.size++
 }
 
 func (s *Stack[T]) Pop() (value T, ok bool) {
-	if s.tail == nil {
+	if s.size == 0 {
 		var emptyVal T
 		return emptyVal, false
 	}
 
 	value = s.tail.value
 
-	if s.tail == s.head {
+	if s.size == 1 {
 		s.head = nil
 		s.tail = nil
+		s.size--
 		return value, true
 	}
 
 	prevNode := s.tail.prev
 	prevNode.next = nil
 	s.tail = prevNode
+	s.size--
 
 	return value, true
 }
 
 func (s *Stack[T]) Peek() (value T, ok bool) {
-	if s.tail == nil {
+	if s.size == 0 {
 		var emptyVal T
 		return emptyVal, false
 	}
@@ -62,18 +66,5 @@ func (s *Stack[T]) Peek() (value T, ok bool) {
 }
 
 func (s *Stack[T]) Size() int {
-	if s.head == nil {
-		return 0
-	}
-	if s.head == s.tail {
-		return 1
-	}
-
-	walker := s.head
-	counter := 0
-	for walker != nil {
-		walker = walker.next
-		counter++
-	}
-	return counter
+	return s.size
 }
