@@ -105,3 +105,38 @@ func TestStack_Peek(t *testing.T) {
 		assert.Equal(t, len(test.nums), s.Size())
 	}
 }
+
+func TestStack_PullFirst(t *testing.T) {
+	tests := []struct {
+		nums []int
+	}{
+		{
+			nums: []int{},
+		},
+		{
+			nums: []int{1},
+		},
+		{
+			nums: []int{1, 2, 3, 4, 5},
+		},
+	}
+
+	for _, test := range tests {
+		s := New[int]()
+
+		for _, num := range test.nums {
+			s.Push(num)
+		}
+
+		if len(test.nums) > 0 {
+			for i := 0; i < len(test.nums); i++ {
+				n, ok := s.PullFirst()
+				assert.True(t, ok)
+				assert.Equal(t, test.nums[i], n)
+			}
+		}
+
+		_, ok := s.PullFirst()
+		assert.False(t, ok)
+	}
+}

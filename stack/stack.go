@@ -68,3 +68,24 @@ func (s *Stack[T]) Peek() (value T, ok bool) {
 func (s *Stack[T]) Size() int {
 	return s.size
 }
+
+func (s *Stack[T]) PullFirst() (value T, ok bool) {
+	if s.size == 0 {
+		var emptyVal T
+		return emptyVal, false
+	}
+
+	value = s.head.value
+
+	if s.size == 1 {
+		s.head = nil
+		s.tail = nil
+	} else {
+		nextNode := s.head.next
+		nextNode.prev = nil
+		s.head = nextNode
+	}
+
+	s.size--
+	return value, true
+}
