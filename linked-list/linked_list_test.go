@@ -1,11 +1,11 @@
-package collections
+package linkedlist
 
 import (
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
 
-func TestStack_Push(t *testing.T) {
+func TestLinkedList_Push(t *testing.T) {
 	tests := []struct {
 		nums         []int
 		expectedSize int
@@ -34,7 +34,7 @@ func TestStack_Push(t *testing.T) {
 	}
 }
 
-func TestStack_Pop(t *testing.T) {
+func TestLinkedList_Pop(t *testing.T) {
 	tests := []struct {
 		nums []int
 	}{
@@ -69,7 +69,7 @@ func TestStack_Pop(t *testing.T) {
 	}
 }
 
-func TestStack_Peek(t *testing.T) {
+func TestLinkedList_Peek(t *testing.T) {
 	tests := []struct {
 		nums          []int
 		expectedValue int
@@ -106,7 +106,7 @@ func TestStack_Peek(t *testing.T) {
 	}
 }
 
-func TestStack_PullFirst(t *testing.T) {
+func TestLinkedList_PullFirst(t *testing.T) {
 	tests := []struct {
 		nums []int
 	}{
@@ -141,7 +141,7 @@ func TestStack_PullFirst(t *testing.T) {
 	}
 }
 
-func TestStack_First(t *testing.T) {
+func TestLinkedList_First(t *testing.T) {
 	tests := []struct {
 		nums          []int
 		expectedValue int
